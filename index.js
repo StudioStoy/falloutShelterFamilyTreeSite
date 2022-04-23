@@ -35,6 +35,23 @@ function handleDwellerData(dwellerData) {
         let dwellerMotherId;
         let dwellerFatherId;
         let dwellerPartners;
+        let dwellerGender = dweller.gender;
+        let dwellerChildren = [];
+
+        let childrenURL = "https://fallout-shelter-family-tree.herokuapp.com/vault/family/" +dwellerId;
+
+        fetch(childrenURL, {
+            method:"GET"
+        })
+            .then(res => res.json())
+            .then(childData => {
+                for (let i = 0; i < childData.length; i++) {
+                    let childname = childData[i].firstName + " " + childData[i].lastName;
+                    dwellerChildren.push(childname);
+                }
+            })
+            .catch(error => console.log(error));
+
 
         if (dweller.parentIds !== null) {
             dwellerMotherId = dweller.mother.id;
@@ -50,13 +67,17 @@ function handleDwellerData(dwellerData) {
             pids: dwellerPartners,
             mid: dwellerMotherId,
             fid: dwellerFatherId,
-            name: dwellerName
+            name: dwellerName,
+            gender: dwellerGender,
+            children: dwellerChildren
         }
 
         dwellerNodeList.push(dwellerNode);
     }
 
     new FamilyTree(document.getElementById("tree"), {
+        scaleInitial: FamilyTree.match.boundary,
+        miniMap: true,
         nodeBinding: {
             field_0: "name"
         },
