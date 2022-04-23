@@ -1,13 +1,30 @@
-let URL = "https://fallout-shelter-family-tree.herokuapp.com/dweller"
+let URL = "https://fallout-shelter-family-tree.herokuapp.com/vault";
 
-fetch(URL, {
-    method:"GET"
+let submitButton = document.querySelector("#submitButton");
+submitButton.addEventListener("click", () => {
+    const importedFile = document.getElementById('import-file').files[0];
+    if (importedFile !== undefined) {
+        importFile(importedFile);
+    }
 })
-    .then(res => res.json())
-    .then(data => {
-        handleDwellerData(data)
-    })
-    .catch(error => console.log(error));
+
+function importFile(file) {
+    const reader = new FileReader();
+    reader.onload = function() {
+        let vaultData = (reader.result);
+
+        fetch(URL, {
+            method:"POST",
+            body:vaultData,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(res => res.json())
+            .then(data => handleDwellerData(data))
+            .catch(error => console.log(error));
+    };
+    reader.readAsText(file);
+}
 
 function handleDwellerData(dwellerData) {
     let dwellerNodeList = [];
