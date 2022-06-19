@@ -8,10 +8,27 @@ submitButton.addEventListener("click", () => {
     }
 })
 
+let startTime, interval, totaltime;
+
+function start(){
+    startTime = Date.now();
+    interval = setInterval(function(){
+        var elapsedTime = Date.now() - startTime;
+        totaltime = (elapsedTime / 1000).toFixed(3);
+    });
+}
+
+function stop(){
+    clearInterval(interval);
+    return totaltime;
+}
+
 function importFile(file) {
     const reader = new FileReader();
     reader.onload = function() {
         let vaultData = (reader.result);
+
+        start();
 
         fetch(URL, {
             method:"POST",
@@ -20,7 +37,12 @@ function importFile(file) {
                 "Content-Type": "application/json"
             }
         }).then(res => res.json())
-            .then(data => handleDwellerData(data))
+            .then(data => {
+                handleDwellerData(data)
+
+                let timeItTook = stop();
+                document.querySelector(".elapsed-time").textContent = "It took " + timeItTook + "ms to fetch the results."
+            })
             .catch(error => console.log(error));
     };
     reader.readAsText(file);
