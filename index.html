@@ -5,10 +5,19 @@
     <title>Fallout Shelter Family Tree</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <script src="https://balkan.app/js/familytree.js"></script>
-    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
 <main>
+    <h1>Fallout Shelter family tree generator</h1>
+
+    <p class="info">
+        Upload here your vault save file and press submit. It might take a while for the tree to show up,
+        as the backend may need to start back up from sleep. Refresh if it takes longer than 20 seconds.
+    </p>
+
+    <a href="http://studiostoy.nl"><< Go to studiostoy.nl</a>
+
     <input type="file" name="import-file" id="import-file" accept="application/json" required>
     <button id="submitButton">Submit</button>
 

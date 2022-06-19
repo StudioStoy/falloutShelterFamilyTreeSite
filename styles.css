@@ -1,0 +1,55 @@
+/*CSS*/
+html, body{
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin:0;
+    overflow: hidden;
+    font-family: Helvetica, serif;
+    text-align: center;
+}
+
+h1 {
+    padding: 20px;
+    text-align: center;
+    background: #bc1a1a;
+    color: white;
+    font-size: 1rem;
+    margin:0;
+}
+
+a {
+    display: block;
+}
+
+button {
+    background-color: white;
+    color: black;
+    border: 2px solid #f44336;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+#tree{
+    width:100%;
+    height:100%;
+}
+
+svg.tommy .node.male>rect {
+    fill: lightskyblue;
+}
+
+svg.tommy .node.female>rect {
+    fill: pink;
+}
